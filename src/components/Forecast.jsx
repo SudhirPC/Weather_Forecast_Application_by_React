@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import ForecastCard from "./ForecastCard";
 
 const Forecast = ({ weekly, handleChangeDay }) => {
-
-  const [active, setActive] = useState(null)
+  const [active, setActive] = useState(null);
 
   return (
-    <Flex h="9rem" w='100%' p='0 .5rem' overflowX={"scroll"}  align='center'>
+    <Flex h="9rem" w="100%" p="0 .5rem" overflowX={"scroll"} align="center">
       {weekly?.map((daily, index) => {
         return (
           <ForecastCard
@@ -15,7 +14,7 @@ const Forecast = ({ weekly, handleChangeDay }) => {
             daily={daily}
             handleChangeDay={handleChangeDay}
             setActive={setActive}
-             active={active}
+            active={active}
           />
         );
       })}

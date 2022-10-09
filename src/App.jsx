@@ -42,16 +42,13 @@ function App() {
   }, []);
 
   const handleSearch = (city) => {
-
     let key = "ed603e64a3a129d0915b84a5c3f6accd";
 
     try {
-      
       axios({
         url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`,
         method: "get",
       }).then((res) => {
-
         const {
           data: {
             coord: { lat, lon },
@@ -74,35 +71,34 @@ function App() {
       url: `https://api.openweathermap.org/data/2.5/onecall?lat=${lati}&lon=${long}&exclude=minutely&appid=${key}`,
       method: "get",
     }).then((res) => {
-setTimeout(() =>{
-
-  setLoading(false);
-  setCurrent(res.data.current);
-  setHourly(res.data.hourly);
-  setDaily(res.data.daily);
-},1200);
-})
+      setTimeout(() => {
+        setLoading(false);
+        setCurrent(res.data.current);
+        setHourly(res.data.hourly);
+        setDaily(res.data.daily);
+      }, 1200);
+    });
   };
 
   const getCityResult = (lati, long) => {
- 
-
     let key = "ed603e64a3a129d0915b84a5c3f6accd";
-
 
     axios({
       url: `http://api.openweathermap.org/geo/1.0/reverse?lat=${lati}&lon=${long}&limit=1&appid=${key}`,
       method: "get",
     }).then((res) => {
-
       setCurrentLocation(res?.data[0]?.name);
     });
   };
 
-
-
   return (
-    <Box className="App" maxW="40rem" margin="0 auto" p='1rem 0' position="relative">
+    <Box
+      className="App"
+      maxW="40rem"
+      margin="0 auto"
+      p="1rem 0"
+      position="relative"
+    >
       <Box className="searchBox" p="1rem">
         <SearchBar
           currentLocation={currentLocation}
@@ -129,9 +125,16 @@ setTimeout(() =>{
           </Box>
         </>
       )}
-      {loading && 
-        <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_vk6zmhp7.json"  background="transparent"  speed="1"  style={{width: "100%", height: "100%", transform:'scale(.5)'}}  loop autoplay></lottie-player>
-      }
+      {loading && (
+        <lottie-player
+          src="https://assets8.lottiefiles.com/packages/lf20_vk6zmhp7.json"
+          background="transparent"
+          speed="1"
+          style={{ width: "100%", height: "100%", transform: "scale(.5)" }}
+          loop
+          autoplay
+        ></lottie-player>
+      )}
     </Box>
   );
 }

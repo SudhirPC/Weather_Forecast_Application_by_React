@@ -12,19 +12,17 @@ import { Cities } from "../data/city";
 import CityDebounce from "./DebounceCity";
 import CitySearch from "./CitySearch";
 
-const SearchBar = ({ searchText ,currentLocation, currentLocationFind}) => {
-console.log(currentLocation,"curr")
+const SearchBar = ({ searchText, currentLocation, currentLocationFind }) => {
+  console.log(currentLocation, "curr");
 
   const [text, setText] = useState(null);
-  console.log(text,'text')
+  console.log(text, "text");
 
-  useEffect(() =>{
-
+  useEffect(() => {
     setText(currentLocation);
+  }, [currentLocation]);
 
-  },[currentLocation])
-
-  const [city, setCity]= useState(null);
+  const [city, setCity] = useState(null);
 
   const handleChangeText = (e) => {
     setText(e.target.value);
@@ -32,35 +30,28 @@ console.log(currentLocation,"curr")
 
   const handleSearch = () => {
     searchText(text);
-    setText(text+' ')
+    setText(text + " ");
   };
 
-  const cityData= CityDebounce(text, 800)
-
+  const cityData = CityDebounce(text, 800);
 
   useEffect(() => {
+    function filterByValue(array, string) {
+      return array?.filter((el) => {
+        return el?.city?.toLowerCase().includes(string?.toLowerCase());
+      });
+    }
 
-      function filterByValue(array, string) {
-        return array?.filter((el) =>
-  
-          { return el?.city?.toLowerCase().includes(string?.toLowerCase())}
-          )
-      }
-  
-  
-      setCity(filterByValue(Cities, cityData));
-
+    setCity(filterByValue(Cities, cityData));
   }, [cityData]);
 
-
-  const handleFindLocation=()=>{
-    currentLocationFind(true)
-    setText(currentLocation)
-  }
-
+  const handleFindLocation = () => {
+    currentLocationFind(true);
+    setText(currentLocation);
+  };
 
   return (
-    <Box  >
+    <Box>
       <InputGroup align="center" display="flex">
         <InputLeftElement
           h="3rem"
@@ -86,11 +77,25 @@ console.log(currentLocation,"curr")
           cursor="pointer"
         />
       </InputGroup>
-      <Box  position="absolute" top="20"  w='94%' zIndex='100'  boxShadow=' rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px' borderRadius='10px' overflow='hidden'>
-        {city?.map((el,i)=>{
-         return <CitySearch searchText={searchText} setText={setText} key={++i} el={el}/>
+      <Box
+        position="absolute"
+        top="20"
+        w="94%"
+        zIndex="100"
+        boxShadow=" rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px"
+        borderRadius="10px"
+        overflow="hidden"
+      >
+        {city?.map((el, i) => {
+          return (
+            <CitySearch
+              searchText={searchText}
+              setText={setText}
+              key={++i}
+              el={el}
+            />
+          );
         })}
-
       </Box>
     </Box>
   );

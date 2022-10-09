@@ -3,10 +3,7 @@ import { Line } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 import Chart from "chart.js/auto";
 
-const TempChart = ({tempChartData,tempData}) => {
-
- 
-
+const TempChart = ({ tempChartData, tempData }) => {
   const [state, setState] = useState({
     dataLine: {
       labels: [],
@@ -28,30 +25,28 @@ const TempChart = ({tempChartData,tempData}) => {
     },
   });
 
-  useEffect(()=>{
-
+  useEffect(() => {
     setState({
-        dataLine: {
-          labels: tempData,
-          datasets: [
-            {
-              label: "Temperature",
-              fill: true,
-              lineTension: 0.3,
-              backgroundColor: "#3887ff8d",
-              borderColor: "#1a81f0e4",
-              pointBackgroundColor: "rgb(255,255,255)",
-              pointHoverBackgroundColor: "#ffffff",
-              pointBorderColor: "#1a7ef0e4",
-              pointRadius: 3,
-              pointHoverRadius: 5,
-              data: tempChartData,
-            },
-          ],
-        },
-      });
-
-},[tempChartData])
+      dataLine: {
+        labels: tempData,
+        datasets: [
+          {
+            label: "Temperature",
+            fill: true,
+            lineTension: 0.3,
+            backgroundColor: "#3887ff8d",
+            borderColor: "#1a81f0e4",
+            pointBackgroundColor: "rgb(255,255,255)",
+            pointHoverBackgroundColor: "#ffffff",
+            pointBorderColor: "#1a7ef0e4",
+            pointRadius: 3,
+            pointHoverRadius: 5,
+            data: tempChartData,
+          },
+        ],
+      },
+    });
+  }, [tempChartData]);
 
   return (
     <MDBContainer>
@@ -63,7 +58,6 @@ const TempChart = ({tempChartData,tempData}) => {
           plugins: {
             legend: {
               display: false,
-
             },
           },
         }}
@@ -73,4 +67,3 @@ const TempChart = ({tempChartData,tempData}) => {
 };
 
 export default TempChart;
-
